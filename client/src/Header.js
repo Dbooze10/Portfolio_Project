@@ -1,14 +1,14 @@
 import {Link} from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Header() {
-    const [username, setUsername] = useState(null)
+    const {setUserInfo, userInfo} = useContext(UserContext)
     useEffect(() => {
         fetch('http:localhost:4000/profile', {
             credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
-                setUsername(userInfo.username)
+                setUserInfo(userInfo)
             })
         });
     }, []);
@@ -18,8 +18,10 @@ export default function Header() {
             credentials: 'include',
             method: 'POST',
         });
-        setUsername(null);
+        setUerInfo(null);
     }
+
+    const username = userInfo?.username;
 
 
     return ( 
@@ -28,7 +30,7 @@ export default function Header() {
             <nav>
                 {username && (
                     <>
-                        <Link to="/create">Create new psot</Link>
+                        <Link to="/create">Create new postt</Link>
                         <a onClick = {logout}>Logout</a>
                     </>
                 )}

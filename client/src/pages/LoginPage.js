@@ -5,6 +5,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const {setUserInfo} = useContext(UserContext);
     async function login(ev) {
         ev.preventDefault();
         const response = fetch('http://localhost:3000/login', {
@@ -14,6 +15,10 @@ export default function LoginPage() {
             credentials: 'include', 
         })
         if (response.ok){
+            response.json().then(userInfo => {
+                setUserInfo(userInfo);
+                setRedirect(true);
+            })
             setRedirect(true);
         } else {
             alert('wrong password');
