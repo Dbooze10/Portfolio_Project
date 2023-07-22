@@ -1,10 +1,43 @@
+import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+
 export default function Header() {
+    const [username, setUsername] = useState(null)
+    useEffect(() => {
+        fetch('http:localhost:4000/profile', {
+            credentials: 'include',
+        }).then(response => {
+            response.json().then(userInfo => {
+                setUsername(userInfo.username)
+            })
+        });
+    }, []);
+
+    function logout() {
+        fetch('http:localhost:4000/logout', {
+            credentials: 'include',
+            method: 'POST',
+        });
+        setUsername(null);
+    }
+
+
     return ( 
         <header>
             <a href="/" className="logo">MyBlog</a>
             <nav>
-                <a href="/login">Login</a>
-                <a href="/sign-Up">Sign-Up</a>
+                {username && (
+                    <>
+                        <Link to="/create">Create new psot</Link>
+                        <a onClick = {logout}>Logout</a>
+                    </>
+                )}
+                {!username && (
+                    <>
+                        <Link to="/login">Login</Link>
+                        <Link to="/signup">Sign Up</Link>
+                    </>
+                )}
             </nav>
       </header>
     );
