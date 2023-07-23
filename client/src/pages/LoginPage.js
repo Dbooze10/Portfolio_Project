@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {Navigate} from "react-router-dom";
+import {UserContext} from "../UserContext"
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ export default function LoginPage() {
     const {setUserInfo} = useContext(UserContext);
     async function login(ev) {
         ev.preventDefault();
-        const response = fetch('http://localhost:3000/login', {
+        const response = fetch('http://localhost:4000/login', {
             method:'POST',
             body: JSON.stringify({username, password}),
             headers: {'Content-Type':'application/json'},

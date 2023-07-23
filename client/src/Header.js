@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import {UserContext} from "../UserContext"
 
 export default function Header() {
     const {setUserInfo, userInfo} = useContext(UserContext)
@@ -18,7 +19,7 @@ export default function Header() {
             credentials: 'include',
             method: 'POST',
         });
-        setUerInfo(null);
+        setUserInfo(null);
     }
 
     const username = userInfo?.username;
@@ -30,7 +31,7 @@ export default function Header() {
             <nav>
                 {username && (
                     <>
-                        <Link to="/create">Create new postt</Link>
+                        <Link to="/create">Create new post</Link>
                         <a onClick = {logout}>Logout</a>
                     </>
                 )}
