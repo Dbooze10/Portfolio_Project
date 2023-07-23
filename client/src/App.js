@@ -19,6 +19,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/create" element={<CreatePost />} />
+          <Route path="/post/:id" element={<PostPage />} />
         </Route>
       </Routes>
       </UserContextProvider>
