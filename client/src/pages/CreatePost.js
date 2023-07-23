@@ -10,13 +10,16 @@ export default function CreatePost() {
     const [content, setContent] = useState('');
     const [files, setFiles] = useState('');
     const [redirect, setRedirect] = useState(false);
+
     async function createNewPost(ev) {
+        ev.preventDefault();
+
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
-        data.set('file', files[0]);
-        ev.preventDefault();
+        if (files) data.append("file", files[0])
+       
         const response = await fetch('http://localhost:4000/post', {
             method: 'POST', 
             body: data,
@@ -33,11 +36,15 @@ export default function CreatePost() {
 
     return (
         <form onSubmit={createNewPost}>
-            <input type="title" placeholder={'Title'} value={title} onChange={ev => setTitle(ev.target.value)}></input>
-            <input type="summary" placeholder={'Summary'} value={summary} onChange={ev => setSummary(ev.target.value)}></input>
-            <input type="file" onChange={ev => setFiles(ev.target.files)}></input>
+            <input 
+                type="text"
+                placeholders="Summary"
+                value={summary}
+                onChange={(ev) => setSummary(ev.target.value)}
+            />
+            <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
             <Editor value={content} onChange={setContent} />
-            <button style={{marginTop: '5px'}}>Create Post</button>
+            <button style={{marginTop: "5px"}}>Create Post</button>
         </form>
-    )
+    );
 }
