@@ -5,7 +5,7 @@ export default function SignupPage() {
     const [ password, setPassword ] = useState('');
     async function signup(ev) {
         ev.preventDefault();
-        const response = await fetch('http://localhost:3000/signup', {
+        const response = await fetch('http://localhost:4000/signup', {
             method: 'POST',
             body: JSON.stringify({username, password}),
             hearders: {'Content-Type':'application/json'}

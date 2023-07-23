@@ -36,7 +36,7 @@ export default function CreatePost() {
             <input type="title" placeholder={'Title'} value={title} onChange={ev => setTitle(ev.target.value)}></input>
             <input type="summary" placeholder={'Summary'} value={summary} onChange={ev => setSummary(ev.target.value)}></input>
             <input type="file" onChange={ev => setFiles(ev.target.files)}></input>
-            <Editor value={content} onChange={setcontent} />
+            <Editor value={content} onChange={setContent} />
             <button style={{marginTop: '5px'}}>Create Post</button>
         </form>
     )
